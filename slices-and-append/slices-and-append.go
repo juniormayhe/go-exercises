@@ -26,5 +26,5 @@ func main() {
 }
 
 func printSlice(m string, s []int) {
-	fmt.Printf("%v len=%d cap=%d value=%v\n", m, len(s), cap(s), s)
+	fmt.Printf("%v len=%d cap=%d address=%p value=%v\n", m, len(s), cap(s), s, s)
 }
