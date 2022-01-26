@@ -12,6 +12,7 @@ func main() {
 	arr := []int{1, 2, 3, 4, 5}
 	printSlice("arr	| ", arr)
 
+	//max elements per chunk
 	maxElements := 2
 	for i := 0; i < len(arr); i += maxElements {
 		max := min(i+maxElements, len(arr))
