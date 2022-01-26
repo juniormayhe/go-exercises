@@ -9,8 +9,7 @@ import (
 func main() {
 	fmt.Println(currentFilename.GetCurrentFileName())
 
-	// make int array with 3 elements and max length of 5 elements
-	// all 3 elements will be set to 0
+	// make a 5 positions array with 3 elements set to 0 by default
 	s := make([]int, 3, 5)
 	printSlice("s", s)
 
