@@ -1,5 +1,5 @@
-module exercises
+module exercices
 
 go 1.17
 
-require github.com/juniormayhe/currentFilename v0.0.0-20220125164439-f3e08984a506 // indirect
+require github.com/juniormayhe/currentFilename v0.0.0-20220127175805-b7fd44d7cdb5 // indirect
