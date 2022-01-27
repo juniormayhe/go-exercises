@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/juniormayhe/currentFilename"
 	"golang.org/x/tour/wc"
 )
 
@@ -26,5 +27,6 @@ func WordCount(s string) map[string]int {
 }
 
 func main() {
+	fmt.Println(currentFilename.GetCurrentFileName())
 	wc.Test(WordCount)
 }
