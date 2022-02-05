@@ -9,25 +9,23 @@ import (
 func main() {
 	fmt.Println(currentFilename.GetCurrentFileName())
 
-	s := []int{1, 2, 3}
-	printSlice("s	| ", s)
+	arr := []int{1, 2, 3}
+	printSlice("arr	| ", arr)
 
 	// Slice the array to give it zero length.
-	// Elements are not dropped. Still have the same memory address to underlying array
-	s = s[:0]
+	// The slice points to the memory address of the underlying array.
+	s := arr[:0] // high limit is 0
+	fmt.Printf("\t|  note: arr address=%p == s address==%p\n", arr, s)
 	printSlice("s[:0]	| ", s)
 
-	// extend array to original size,
-	// all elements are still there in the same memory address of underlying array
-	s = s[:3]
+	// extend slice to original length and capacity of the underlying array,
+	s = s[:3] // high limit is 3 (we get all arr elements)
 	printSlice("s[:3]	| ", s)
 
 	// when skipping first two values by setting low limit to 2,
-	// a new array is created in memory with a different len and capacity
-
-	s = s[2:] // the underlying array is replaced with a new address
+	// the pointer moves forward to a different memory address and we get a smaller length and capacity compared to underlying array
+	s = s[2:] // the pointer to initial position moves to a new memory address
 	printSlice("s[2:]	| ", s)
-
 }
 
 func printSlice(m string, s []int) {
