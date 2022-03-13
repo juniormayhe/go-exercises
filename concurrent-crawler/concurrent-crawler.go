@@ -14,7 +14,7 @@ type Fetcher interface {
 	Fetch(url string) (body string, urls []string, err error)
 }
 
-func setVisited(url string, visited map[string]bool, lock sync.Mutex) {
+func setVisited(url string, visited map[string]bool, lock *sync.Mutex) {
 	lock.Lock()
 	visited[url] = true
 	lock.Unlock()
@@ -22,9 +22,7 @@ func setVisited(url string, visited map[string]bool, lock sync.Mutex) {
 
 // Crawl uses fetcher to recursively crawl
 // pages starting with url, to a maximum of depth.
-func Crawl(url string, depth int, fetcher Fetcher, fetched map[string]bool) {
-
-	var lock sync.Mutex
+func Crawl(url string, depth int, fetcher Fetcher, fetched map[string]bool, lock *sync.Mutex) {
 
 	_, exist := fetched[url]
 
@@ -44,7 +42,7 @@ func Crawl(url string, depth int, fetcher Fetcher, fetched map[string]bool) {
 	fmt.Printf("found: %s %q\n", url, body)
 
 	for _, u := range urls {
-		go Crawl(u, depth-1, fetcher, fetched)
+		go Crawl(u, depth-1, fetcher, fetched, lock)
 	}
 	setVisited(url, fetched, lock)
 
@@ -104,6 +102,7 @@ var fetcher = fakeFetcher{
 func main() {
 	fmt.Println(currentFilename.GetCurrentFileName(), "\n")
 	fetchedUrls := make(map[string]bool)
-	Crawl("https://golang.org/", 4, fetcher, fetchedUrls)
+	var lock sync.Mutex
+	Crawl("https://golang.org/", 4, fetcher, fetchedUrls, &lock)
 	fmt.Println(fetchedUrls)
 }
